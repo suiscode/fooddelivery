@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
+
 
 function MenuPage() {
   return (
-    <div>MenuPage</div>
-  )
+   <div>Hello</div>
+  );
 }
 
-export default MenuPage
+export default MenuPage;

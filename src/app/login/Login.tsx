@@ -1,17 +1,30 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Login() {
   const [info, setInfo] = useState({ email: "", password: "" });
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    console.log(info.email, info.password);
+    try {
+      const response = await axios.post("/api/signin", {
+        email: info.email,
+        password: info.password,
+      });
+      router.push("/");
+    } catch (e: any) {
+      setError(e.response.data);
+    }
     setLoading(false);
   };
 
@@ -54,6 +67,7 @@ function Login() {
             Нууц үг сэргээх
           </Link>
         </div>
+        {error && <h1 className="text-red-400">{error}</h1>}
         <button
           disabled={!info.email || !info.password || loading}
           className={`greenbutton mt-12 border-2 py-4`}

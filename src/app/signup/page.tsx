@@ -22,13 +22,16 @@ function SignupPage() {
     if (info.password !== info.confirmPassword) {
       setError("Password does not match");
     }
-    const response = await axios.post("/api/signup", {
-      name: info.name,
-      email: info.email,
-      location: info.location,
-      password: info.password,
-    });
-    console.log(response);
+    try {
+      const response = await axios.post("/api/signup", {
+        name: info.name,
+        email: info.email,
+        location: info.location,
+        password: info.password,
+      });
+    } catch (error: any) {
+      setError(error.response.data);
+    }
   };
 
   return (
