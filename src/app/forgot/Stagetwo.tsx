@@ -4,26 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-function Stagetwo({ email, setStage }: any) {
+function Stagetwo({ email, setStage, code }: any) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState("");
   const [show, setShow] = useState(false);
+  const [verficationCode, setVerificationCode] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      const response = await axios.post("/api/forgot", {
-        email: email,
-      });
-
-      setStage(3);
+    if (code != verficationCode) {
       setLoading(false);
-    } catch (e: any) {
-      setError(e.response.data);
-      setLoading(false);
+      setError("Wrong code");
+      return;
     }
+
+    setLoading(false);
+    setStage(3);
   };
 
   return (
@@ -39,9 +36,9 @@ function Stagetwo({ email, setStage }: any) {
           <input
             className="bg-gray-100 rounded-md p-2 outline-none"
             placeholder="*********"
-            type={show ? "number" : 'password'}
-            onChange={(e) => setCode(e.target.value)}
-            value={code}
+            type={show ? "number" : "password"}
+            onChange={(e) => setVerificationCode(e.target.value)}
+            value={verficationCode}
           />
           <Image
             src="/eyehide.png"

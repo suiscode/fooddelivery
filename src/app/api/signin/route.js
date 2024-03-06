@@ -2,11 +2,13 @@ import { NextResponse } from "next/server";
 import { connectToDb, generateToken } from "../utils";
 import { User } from "@/app/api/models";
 import bcrypt from "bcrypt";
+import {NextRequest} from "next/server"
 import { cookies } from "next/headers";
 
 export const POST = async (req, res) => {
   const body = await req.json();
   connectToDb();
+
 
   try {
     const user = await User.find({ email: body.email });

@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function Stageone({ setStage, email, setEmail }: any) {
+function Stageone({ setStage, email, setEmail, setCode }: any) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -13,8 +13,7 @@ function Stageone({ setStage, email, setEmail }: any) {
       const response = await axios.post("/api/forgot", {
         email: email,
       });
-      console.log(response.data);
-      
+      setCode(response.data);
       setStage(2);
     } catch (e: any) {
       setError(e.response.data);
