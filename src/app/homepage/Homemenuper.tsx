@@ -2,6 +2,7 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import { Stack, Typography } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "16px",
@@ -13,15 +14,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Homemenuper({ title, desc, img }: any) {
   return (
-    <div>
+    <Stack>
       <Item elevation={2} className="flex flex-col p-5">
         {img}
-        <div>
-          <h1 className="font-bold text-lg">{title}</h1>
-          <h1 className="text-[#272727 font-light]">{desc}</h1>
-        </div>
+        <Stack>
+          <Typography className="font-bold text-lg">{title}</Typography>
+          <Typography className="text-[#272727 font-light]">{desc}</Typography>
+        </Stack>
       </Item>
-    </div>
+    </Stack>
   );
 }
 

@@ -1,41 +1,83 @@
-import React from 'react'
-import Forminput from './Forminput'
+import React from "react";
+import Forminput from "./Forminput";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
-import Button from "@mui/material/Button";
+import HistoryIcon from "@mui/icons-material/History";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Stack, Typography } from "@mui/material";
 
-function FormFirst({user, setState,handleSubmit}:any) {
+function FormFirst({ user, setState, handleSubmit }: any) {
   return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-    <Forminput
-      img={<PermIdentityOutlinedIcon />}
-      input={user.name}
-      setState={setState}
-    />
-    <Forminput
-      img={<LocalPhoneOutlinedIcon />}
-      input={user.phoneNumber}
-      setState={setState}
-    />
-    <Forminput
-      img={<ForwardToInboxOutlinedIcon />}
-      input={user.email}
-      setState={setState}
-    />
-    <div className="bg-gray-100 w-full h-16 rounded-sm flex items-center justify-between px-6">
-      <div className="flex items-center gap-2">
-        <div className="bg-white rounded-full border-[1px] w-12 h-12 flex items-center justify-center">
-        </div>
-        <div className="flex flex-col">
-          <h1 className="text-gray-400 font-light">Таны нэр</h1>
-          <h1>hello</h1>
-        </div>
-      </div>
-    </div>
-   
-  </form>
-  )
+    <Stack spacing={6} paddingBottom={"100px"} width={"100%"}>
+      <Stack onSubmit={handleSubmit} width={"100%"} spacing={2}>
+        <Forminput
+          img={<PermIdentityOutlinedIcon />}
+          input={user.name}
+          setState={setState}
+          type={false}
+        />
+        <Forminput
+          img={<LocalPhoneOutlinedIcon />}
+          input={user.phoneNumber}
+          setState={setState}
+          type={false}
+        />
+        <Forminput
+          img={<ForwardToInboxOutlinedIcon />}
+          input={user.email}
+          setState={setState}
+          type={false}
+        />
+      </Stack>
+      <Stack
+        direction={"row"}
+        width={"100%"}
+        bgcolor={"white"}
+        height={16}
+        borderRadius={"2px"}
+        alignItems={"center"}
+        spacing={2}
+        paddingInline={"20px"}
+      >
+        <Stack
+          alignItems={"center"}
+          justifyContent={"center"}
+          bgcolor={"white"}
+          borderRadius={"50%"}
+          sx={{ borderRadius: "50%", border: "1px solid gray" }}
+          width={"48px"}
+          height={"48px"}
+        >
+          <HistoryIcon />
+        </Stack>
+        <Typography>Захиалгын түүх</Typography>
+      </Stack>
+      <Stack
+        direction={"row"}
+        width={"100%"}
+        bgcolor={"white"}
+        height={16}
+        borderRadius={"2px"}
+        alignItems={"center"}
+        spacing={2}
+        paddingInline={"20px"}
+      >
+        <Stack
+          alignItems={"center"}
+          justifyContent={"center"}
+          bgcolor={"white"}
+          borderRadius={"50%"}
+          sx={{ borderRadius: "50%", border: "1px solid gray" }}
+          width={"48px"}
+          height={"48px"}
+        >
+          <HistoryIcon />
+        </Stack>
+        <Typography>Гарах</Typography>
+      </Stack>
+    </Stack>
+  );
 }
 
-export default FormFirst
+export default FormFirst;

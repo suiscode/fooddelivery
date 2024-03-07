@@ -19,9 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} min-h-screen flex flex-col items-center w-full border-2 border-black`}
+        className={`${inter.className} min-h-screen flex justify-center w-full border-2 border-black`}
       >
-        <div className="w-[1640px] flex flex-col border-2 h-full border-red-400 justify-between items-center">
+        <div className="w-[1640px] flex flex-col border-2 border-red-400 justify-between items-center">
           <Header />
           {children}
           <Footer />

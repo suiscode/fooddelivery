@@ -10,7 +10,7 @@ cloudinary.config({
 });
 
 export const POST = async (req, res) => {
-    console.log(req);
+
   connectToDb();
 
   try {
