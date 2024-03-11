@@ -6,7 +6,7 @@ import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlin
 import Button from "@mui/material/Button";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 
-function Formsecond({ user, setState, handleSubmit, setUser }: any) {
+function Formsecond({ user, setState, handleSubmit, setUser, label }: any) {
   return (
     <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
       <div className="bg-gray-100 w-full h-16 rounded-sm flex items-center justify-between px-6">
@@ -39,7 +39,7 @@ function Formsecond({ user, setState, handleSubmit, setUser }: any) {
             <PermIdentityOutlinedIcon />
           </div>
           <div className="flex flex-col w-full">
-            <h1 className="text-gray-400 font-light">Таны нэр</h1>
+            <h1 className="text-gray-400 font-light">Дугаар</h1>
             <input
               className="bg-gray-100 outline-none w-full"
               value={user.phoneNumber}
@@ -63,7 +63,7 @@ function Formsecond({ user, setState, handleSubmit, setUser }: any) {
             <PermIdentityOutlinedIcon />
           </div>
           <div className="flex flex-col w-full">
-            <h1 className="text-gray-400 font-light">Таны нэр</h1>
+            <h1 className="text-gray-400 font-light">И-Мэйл</h1>
             <input
               className="bg-gray-100 outline-none w-full"
               value={user.email}

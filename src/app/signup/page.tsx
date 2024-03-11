@@ -8,7 +8,7 @@ function SignupPage() {
   const [info, setInfo] = useState({
     name: "",
     email: "",
-    location: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
@@ -26,7 +26,7 @@ function SignupPage() {
       const response = await axios.post("/api/signup", {
         name: info.name,
         email: info.email,
-        location: info.location,
+        phoneNumber: info.phoneNumber,
         password: info.password,
       });
     } catch (error: any) {
@@ -39,7 +39,7 @@ function SignupPage() {
       <h1 className="font-bold text-[28px]">Нэвтрэх</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
         <div className="flex flex-col">
-          <label>Имэйл</label>
+          <label>Нэр</label>
           <input
             className="bg-gray-100 rounded-md p-2 outline-none"
             placeholder="Нэрээ оруулна уу"
@@ -63,15 +63,15 @@ function SignupPage() {
           />
         </div>
         <div className="flex flex-col">
-          <label>Имэйл</label>
+          <label>Утасны дугаар</label>
           <input
             className="bg-gray-100 rounded-md p-2 outline-none"
-            placeholder="Та хаягаа оруулна уу"
+            placeholder="Утасны дугаараа оруулна уу"
             type="text"
             onChange={(e) =>
-              setInfo((prev) => ({ ...prev, location: e.target.value }))
+              setInfo((prev) => ({ ...prev, phoneNumber: e.target.value }))
             }
-            value={info.location}
+            value={info.phoneNumber}
           />
         </div>
         <div className="flex flex-col relative">
@@ -128,7 +128,7 @@ function SignupPage() {
           disabled={
             !info.name ||
             !info.password ||
-            !info.location ||
+            !info.phoneNumber ||
             !info.password ||
             !info.confirmPassword ||
             !agree

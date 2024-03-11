@@ -14,9 +14,9 @@ export const POST = async (req, res) => {
       const newUser = await User.create({
         name: body.name,
         email: body.email,
-        location: body.location,
-        phoneNumber: +976,
+        phoneNumber: body.phoneNumber,
         password: hashedPassword,
+        imageUrl: ""
       });
       return NextResponse.json("User created", { status: 200 });
     }

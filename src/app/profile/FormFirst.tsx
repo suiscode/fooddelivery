@@ -16,18 +16,23 @@ function FormFirst({ user, setState, handleSubmit }: any) {
           input={user.name}
           setState={setState}
           type={false}
+          label={'Таны нэр'}
+
         />
         <Forminput
           img={<LocalPhoneOutlinedIcon />}
           input={user.phoneNumber}
           setState={setState}
           type={false}
+          label={'Дугаар'}
         />
         <Forminput
           img={<ForwardToInboxOutlinedIcon />}
           input={user.email}
           setState={setState}
           type={false}
+          label={'И-Мэйл'}
+
         />
       </Stack>
       <Stack

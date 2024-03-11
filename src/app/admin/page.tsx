@@ -21,3 +21,14 @@ function AdminPage() {
 }
 
 export default AdminPage;
+
+
+
+// const checkIfAdmin=async()=>{
+//   const response = await axios.post('/api/user')
+//   console.log(response);
+// }
+
+// if(requestedUrl.pathname === '/admin'){
+//   checkIfAdmin()
+// }

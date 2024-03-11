@@ -1,14 +1,20 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+import Image from "next/image";
 
 
 function AvatarPage({user,handleFileUpload}:any) {
+
+  console.log(user.imageUrl);
+
+  const image = `https://res.cloudinary.com/deifnil5n/image/upload/v1710123269/${user.imageUrl}.jpg`
+  
   return (
     <div className="flex relative">
       <Avatar
         alt="Avatar"
-        src={user.picture || "./nopfp.png"}
+        src={user.imageUrl ? image : "./nopfp.png"}
         sx={{ width: 120, height: 120 }}
       />
       <label className="custom-file-upload">

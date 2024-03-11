@@ -14,7 +14,7 @@ function profilePage() {
     password: string;
     phoneNumber: string;
     role: string;
-    picture: string;
+    imageUrl: string;
   };
 
   const [user, setUser] = useState<UserType>({
@@ -23,27 +23,50 @@ function profilePage() {
     password: "",
     phoneNumber: "",
     role: "",
-    picture: "",
+    imageUrl: "",
   });
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState(false);
 
+  const fetchUser = async () => {
+    const response = await axios.get("/api/user");
+    setUser(response.data.data);
+    setLoading(false);
+    console.log("ran");
+  };
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await axios.get("/api/user");
-      setUser(response.data.data);
-      setLoading(false);
-      console.log("ran");
-    };
+  
     fetchUser();
   }, []);
 
-  async function handleFileUpload(event: any) {
-    const file = event.target.files[0];
-    console.log(file);
+  ///// UPLOAD IMAGE /////
 
+  async function handleFileUpload(event: any) {
+    const cloudinaryConfig = {
+      cloud_name: "deifnil5n",
+      api_key: "534983861781594",
+      api_secret: "6qzroYr2gOFRNtgQt-tSNERmsH4",
+      uploadPreset: "tuguldur",
+    };
+    const file = event.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("upload_preset", cloudinaryConfig.uploadPreset);
+    const url = `https://api.cloudinary.com/v1_1/${cloudinaryConfig.cloud_name}/image/upload`;
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+        },
+      });
+      console.log(response);
+      const res = await axios.put('/api/user/image',{
+        publicID:response.data.public_id,
+      })
+      fetchUser()
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const handleSubmit = async (e: any) => {
@@ -76,7 +99,14 @@ function profilePage() {
           setUser={setUser}
         />
       )}
-      {user.role === "admin" && <Link className="text-xl text-green-300 bg-slate-400 rounded-md px-4" href="/admin">Admin Page</Link>}
+      {user.role === "admin" && (
+        <Link
+          className="text-xl text-green-300 bg-slate-400 rounded-md px-4"
+          href="/admin"
+        >
+          Admin Page
+        </Link>
+      )}
     </Stack>
   );
 }

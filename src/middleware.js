@@ -5,7 +5,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 
 
-export const middleware = (req) => {
+export const middleware = async(req) => {
   const token = req.cookies.get("cookie")?.value;
   const requestedUrl = new URL(req.url);
   if (
@@ -14,15 +14,6 @@ export const middleware = (req) => {
     token
   ) {
     return NextResponse.redirect(new URL("/profile", req.url));
-  }
-
-  const checkIfAdmin=async()=>{
-    const response = await axios.post('/api/user')
-    console.log(response);
-  }
-  
-  if(requestedUrl.pathname === '/admin'){
-    checkIfAdmin()
   }
 
   return NextResponse.next();
@@ -34,5 +25,5 @@ export const middleware = (req) => {
 
 
 export const config = {
-  matcher: ["/", "/login", "/signup", "/admin"],
+  matcher: ["/", "/login", "/signup"],
 };
