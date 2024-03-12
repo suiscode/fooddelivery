@@ -5,8 +5,12 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Link from "next/link";
+import axios from "axios";
+import { useGlobalContext } from "@/app/context/Context";
 
-function Category() {
+function Category({ category }: any) {
+  const { setRefresh, refresh } = useGlobalContext();
+
   const options = ["Edit name", "Delete Category"];
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -14,14 +18,21 @@ function Category() {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleDelete = async () => {
+    const res = await axios.put("/api/category", {
+      id: category._id,
+    });
+    handleClose();
+    setRefresh(!refresh);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const categoryName = 'food'
-
   return (
-    <Link href={`/admin?category=${categoryName}`}>
+    <Link href={`/admin?category=${category.name}`}>
       <Stack
         border={1}
         direction={"row"}
@@ -31,7 +42,7 @@ function Category() {
         justifyContent={"space-between"}
         className="cursor-pointer"
       >
-        <Typography fontWeight={"500"}>{categoryName}</Typography>
+        <Typography fontWeight={"500"}>{category.name}</Typography>
         <IconButton
           aria-label="more"
           id="long-button"
@@ -51,15 +62,12 @@ function Category() {
           open={open}
           onClose={handleClose}
         >
-          {options.map((option) => (
-            <MenuItem
-              key={option}
-              selected={option === "Pyxis"}
-              onClick={handleClose}
-            >
-              {option}
-            </MenuItem>
-          ))}
+          <MenuItem key={"Edit"} onClick={handleClose}>
+            Edit name
+          </MenuItem>
+          <MenuItem key={"Delete"} onClick={handleDelete} sx={{ color: "red" }}>
+            Delete Category
+          </MenuItem>
         </Menu>
       </Stack>
     </Link>

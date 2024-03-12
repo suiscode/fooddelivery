@@ -6,6 +6,7 @@ import FormFirst from "./FormFirst";
 import Formsecond from "./Formsecond";
 import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function profilePage() {
   type UserType = {
@@ -17,6 +18,8 @@ function profilePage() {
     imageUrl: string;
   };
 
+
+  const router = useRouter()
   const [user, setUser] = useState<UserType>({
     name: "",
     email: "",
@@ -79,6 +82,15 @@ function profilePage() {
     setState(false);
   };
 
+  const handleSignOut=async()=>{
+    try {
+      await axios.put("/api/signin");
+      router.push('/login')
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <Stack
       alignItems={"center"}
@@ -90,7 +102,7 @@ function profilePage() {
         {user.name}
       </Typography>
       {!state ? (
-        <FormFirst user={user} setState={setState} />
+        <FormFirst user={user} setState={setState} handleSignOut={handleSignOut}/>
       ) : (
         <Formsecond
           handleSubmit={handleSubmit}

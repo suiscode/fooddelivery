@@ -19,10 +19,10 @@ const userSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      required:true
+      required: true,
     },
     imageUrl: {
-      type:String,
+      type: String,
     },
     role: {
       type: String,
@@ -33,4 +33,49 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-export const User = mongoose.models.User || mongoose.model("User", userSchema)
+const categorySchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    foodId: {
+      type: [String],
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const foodSchema = new Schema({
+  foodImage: {
+    type: String,
+    required: true,
+  },
+  foodName: {
+    type: String,
+    required: true,
+  },
+  foodOnSale: {
+    type: Boolean,
+    default: false,
+  },
+  foodPrice: {
+    type: Number,
+    required: true,
+  },
+  foodRecipe: {
+    type: String,
+    required: true,
+  },
+  foodSalePrice: {
+    type: Number,
+  },
+});
+
+export const Category =
+  mongoose.models.Category || mongoose.model("Category", categorySchema);
+
+export const Food = mongoose.models.Food || mongoose.model("Food", foodSchema);
+
+export const User = mongoose.models.User || mongoose.model("User", userSchema);

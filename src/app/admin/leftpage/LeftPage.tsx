@@ -2,6 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import React from "react";
 import Category from "./Category";
 import CreateCategoryButton from "./CreateCategoryButton";
+import CategoryList from "./CategoryList";
 
 function LeftPage() {
   return (
@@ -9,12 +10,8 @@ function LeftPage() {
       <Typography variant="h5" fontWeight={"600"}>
         Food menu
       </Typography>
-      <Stack spacing={2}>
-        <Category/>
-        <Category/>
-        <Category/>
-        <CreateCategoryButton/>
-      </Stack>
+      <CategoryList />
+      <CreateCategoryButton />
     </Stack>
   );
 }

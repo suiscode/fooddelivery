@@ -7,7 +7,9 @@ import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Stack, Typography } from "@mui/material";
 
-function FormFirst({ user, setState, handleSubmit }: any) {
+function FormFirst({ user, setState, handleSubmit,handleSignOut }: any) {
+
+ 
   return (
     <Stack spacing={6} paddingBottom={"100px"} width={"100%"}>
       <Stack onSubmit={handleSubmit} width={"100%"} spacing={2}>
@@ -67,6 +69,8 @@ function FormFirst({ user, setState, handleSubmit }: any) {
         alignItems={"center"}
         spacing={2}
         paddingInline={"20px"}
+        className="cursor-pointer"
+        onClick={()=>handleSignOut()}
       >
         <Stack
           alignItems={"center"}

@@ -1,24 +1,37 @@
+"use client";
 import { Button, Modal, Stack, TextField, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import { useGlobalContext } from "@/app/context/Context";
 
 function CreateCategory({ open, setOpen }: any) {
+  const { refresh, setRefresh } = useGlobalContext();
   const textFieldRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState("");
 
   const handleClose = () => {
-    console.log("Closing modal...");
     setOpen(false);
   };
 
-  const handleContinue = () => {
+  /// SUBMIT BUTTON ///
+
+  const handleContinue = async () => {
     if (!textFieldRef.current?.value) {
       setError("Field is empty");
       return;
     }
-    const categoryValue = textFieldRef.current?.value || "";
-    console.log("Category Name:", categoryValue);
-    handleClose();
+    try {
+      const res = await axios.post("/api/category", {
+        name: textFieldRef.current.value,
+      });
+      setRefresh(!refresh);
+      const categoryValue = textFieldRef.current?.value || "";
+      handleClose();
+      setError("");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleClear = () => {
@@ -74,7 +87,11 @@ function CreateCategory({ open, setOpen }: any) {
             placeholder="category name"
             variant="outlined"
           />
-          {error && <Typography color={'red'} pl={1}>{error}</Typography>}
+          {error && (
+            <Typography color={"red"} pl={1}>
+              {error}
+            </Typography>
+          )}
         </Stack>
         <Stack
           direction={"row"}
@@ -91,9 +108,9 @@ function CreateCategory({ open, setOpen }: any) {
             Clear
           </Button>
           <Button
-            onClick={handleContinue}
             variant="contained"
-            sx={{ backgroundColor: "black", color: "#3F4145" }}
+            sx={{ color: "#393939", "&:hover": { color: "white" } }}
+            onClick={() => handleContinue()}
           >
             Continue
           </Button>

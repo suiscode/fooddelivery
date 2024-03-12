@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import LeftPage from "./LeftPage";
+import LeftPage from "./leftpage/LeftPage";
+import RightPage from "./rightpage/RightPage";
 
 function AdminPage() {
   return (
@@ -13,9 +14,7 @@ function AdminPage() {
       paddingBlock={"30px"}
     >
       <LeftPage />
-      <Stack width={"80%"} border={"2px solid green"}>
-        Hello
-      </Stack>
+      <RightPage/>
     </Stack>
   );
 }

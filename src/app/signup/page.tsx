@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function SignupPage() {
+  const router = useRouter()
   const [info, setInfo] = useState({
     name: "",
     email: "",
@@ -29,6 +31,8 @@ function SignupPage() {
         phoneNumber: info.phoneNumber,
         password: info.password,
       });
+      router.push('/login')
+      
     } catch (error: any) {
       setError(error.response.data);
     }

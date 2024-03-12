@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./Layout/Header";
 import Footer from "./Layout/Footer";
+import { GlobalContextProvider } from "./context/Context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +23,14 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex justify-center w-full border-2 border-black`}
       >
-        <div className="w-[1640px] flex flex-col border-2 border-red-400 justify-between items-center">
-          <Header />
-          {children}
-          <Footer />
-        </div>
+        <CssBaseline />
+        <GlobalContextProvider>
+          <div className="w-[1640px] flex flex-col border-2 border-red-400 justify-between items-center">
+            <Header />
+            {children}
+            <Footer />
+          </div>
+        </GlobalContextProvider>
       </body>
     </html>
   );

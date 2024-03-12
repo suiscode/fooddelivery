@@ -26,3 +26,13 @@ export const POST = async (req, res) => {
     return NextResponse.json(e, { status: 500 });
   }
 };
+
+export const PUT = async (req, res) => {
+
+  try {
+    cookies().delete('cookie')
+    return NextResponse.json("Signed out", { status: 200 });
+  } catch (e) {
+    return NextResponse.json(e, { status: 500 });
+  }
+};

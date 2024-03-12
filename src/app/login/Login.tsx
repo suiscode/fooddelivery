@@ -17,7 +17,7 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("/api/signin", {
+      await axios.post("/api/signin", {
         email: info.email,
         password: info.password,
       });
