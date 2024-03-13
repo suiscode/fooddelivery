@@ -8,7 +8,7 @@ import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-function profilePage() {
+function ProfilePage() {
   type UserType = {
     name: string;
     email: string;
@@ -123,4 +123,4 @@ function profilePage() {
   );
 }
 
-export default profilePage;
+export default ProfilePage;

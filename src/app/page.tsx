@@ -6,7 +6,7 @@ import HomeBar from "./homepage/HomeBar";
 import HomeSpecials from "./homepage/HomeSpecials";
 import { Stack } from "@mui/material";
 
-export default function Home({ Component, pageProps }: AppProps) {
+function Home() {
   return (
     <Stack alignItems={"center"} sx={{ width: "100%", gap: "120px" }}>
       <HeroPage />
@@ -15,3 +15,5 @@ export default function Home({ Component, pageProps }: AppProps) {
     </Stack>
   );
 }
+
+export default Home;

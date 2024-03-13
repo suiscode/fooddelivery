@@ -1,9 +1,4 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { connectToDb } from "./app/api/utils";
-import axios from "axios";
-import jwt from "jsonwebtoken";
-
 
 export const middleware = async(req) => {
   const token = req.cookies.get("cookie")?.value;
@@ -18,11 +13,6 @@ export const middleware = async(req) => {
 
   return NextResponse.next();
 };
-
-
-
-
-
 
 export const config = {
   matcher: ["/", "/login", "/signup"],

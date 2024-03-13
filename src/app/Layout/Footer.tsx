@@ -31,7 +31,7 @@ function Footer() {
         <ul className="flex justify-between w-full">
           {linkArray.map((item) => {
             return (
-              <Link className="underline" href={item.href}>
+              <Link className="underline" key={crypto.randomUUID()} href={item.href}>
                 {item.label}
               </Link>
             );
