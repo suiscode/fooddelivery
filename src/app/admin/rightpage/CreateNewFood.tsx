@@ -20,7 +20,7 @@ import { Label } from "@mui/icons-material";
 import axios from "axios";
 import { useGlobalContext } from "@/app/context/Context";
 
-function CreateNewFood({ setOpen, open }: any) {
+function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
   const { refresh, setRefresh } = useGlobalContext();
   const handleClose = () => setOpen(false);
   const [error, setError] = useState("");
@@ -43,7 +43,6 @@ function CreateNewFood({ setOpen, open }: any) {
   const fetchData = async () => {
     const res = await axios.get("/api/category");
     setCategories(res.data);
-    console.log(res.data);
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -73,14 +72,11 @@ function CreateNewFood({ setOpen, open }: any) {
     try {
       const res = await axios.post("/api/food", foodInputs);
       setRefresh(!refresh);
-      console.log(res);
-      
       handleClose();
       setError("");
-    } catch (e:any) {
+      setRefetch(!refetch);
+    } catch (e: any) {
       setError(e.response.data);
-
-      console.log(e);
     }
   };
 
@@ -180,7 +176,9 @@ function CreateNewFood({ setOpen, open }: any) {
                   <em>Category</em>
                 </MenuItem>
                 {categories.map((category: Category, index: number) => (
-                  <MenuItem key={index} value={category._id}>{category.name}</MenuItem>
+                  <MenuItem key={index} value={category._id}>
+                    {category.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>

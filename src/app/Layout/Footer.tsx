@@ -12,10 +12,10 @@ function Footer() {
   };
 
   const linkArray = [
-    { label: "Нүүр", href: "" },
+    { label: "Нүүр", href: "/" },
     { label: "Холбоо барих", href: "" },
-    { label: "Хоолны цэс", href: "" },
-    { label: "Үйлчилгээний нөхцөл", href: "" },
+    { label: "Хоолны цэс", href: "/menu" },
+    { label: "Үйлчилгээний нөхцөл", href: "/agreement" },
     { label: "Хүргэлтийн бүс", href: "" },
     { label: "Нууцлалын бодлого", href: "" },
   ];

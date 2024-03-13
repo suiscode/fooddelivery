@@ -14,12 +14,15 @@ export const GlobalContextProvider = ({
   children,
 }: GlobalContextProviderProps) => {
   const [refresh, setRefresh] = useState(false);
+  const [cartInfo, setCartInfo] = useState([]);
 
   return (
     <GlobalContext.Provider
       value={{
         refresh,
         setRefresh,
+        cartInfo,
+        setCartInfo,
       }}
     >
       {children}

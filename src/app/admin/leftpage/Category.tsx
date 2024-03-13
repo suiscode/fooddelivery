@@ -7,12 +7,11 @@ import Menu from "@mui/material/Menu";
 import Link from "next/link";
 import axios from "axios";
 import { useGlobalContext } from "@/app/context/Context";
+import { useSearchParams } from "next/navigation";
 
 function Category({ category }: any) {
   const { setRefresh, refresh } = useGlobalContext();
-
   const options = ["Edit name", "Delete Category"];
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,6 +30,9 @@ function Category({ category }: any) {
     setAnchorEl(null);
   };
 
+  const searchParams = useSearchParams();
+  const queryParam = searchParams.get("category");
+
   return (
     <Link href={`/admin?category=${category.name}`}>
       <Stack
@@ -41,8 +43,20 @@ function Category({ category }: any) {
         paddingInline={"10px"}
         justifyContent={"space-between"}
         className="cursor-pointer"
+        style={
+          category.name === queryParam ? { backgroundColor: "#18BA51" } : {}
+        }
       >
-        <Typography fontWeight={"500"}>{category.name}</Typography>
+        <Typography
+          fontWeight={"500"}
+          style={
+            category.name === queryParam
+              ? { color: "white" }
+              : { color: "black" }
+          }
+        >
+          {category.name}
+        </Typography>
         <IconButton
           aria-label="more"
           id="long-button"
@@ -51,7 +65,13 @@ function Category({ category }: any) {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <MoreVertIcon sx={{ color: "black" }} />
+          <MoreVertIcon
+            style={
+              category.name === queryParam
+                ? { color: "white" }
+                : { color: "black" }
+            }
+          />
         </IconButton>
         <Menu
           id="long-menu"

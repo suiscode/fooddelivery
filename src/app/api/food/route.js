@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Category, Food } from "../models";
 import { connectToDb } from "../utils";
+import mongoose from "mongoose";
 
 export const POST = async (req, res) => {
   const body = await req.json();
@@ -38,8 +39,35 @@ export const POST = async (req, res) => {
 
 export const GET = async (req, res) => {
   try {
-    const foodfind = await Food.find();
+    let foodfind;
+
+    const categoryName = req.nextUrl.searchParams.get("category");
+    const amount = req.nextUrl.searchParams.get("amount");
+    const onSale = req.nextUrl.searchParams.get("sale");
+    if (onSale) {
+      foodfind = await Food.find({ foodOnSale: true }).limit(amount);
+      console.log(foodfind, " OLSIISHU HAHAHA");
+      return NextResponse.json(foodfind, { status: 200 });
+    }
+
+    const { foodId } = await Category.findOne({ name: categoryName });
+    if (amount) {
+      foodfind = await Food.find({ _id: { $in: foodId } }).limit(amount);
+    } else {
+      foodfind = await Food.find({ _id: { $in: foodId } });
+    }
     return NextResponse.json(foodfind, { status: 200 });
+  } catch (e) {
+    return NextResponse.json(e, { status: 500 });
+  }
+};
+
+export const PUT = async (req, res) => {
+  const { items } = await req.json();
+
+  try {
+    console.log(items);
+    return NextResponse.json("hi", { status: 200 });
   } catch (e) {
     return NextResponse.json(e, { status: 500 });
   }

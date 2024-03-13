@@ -4,14 +4,20 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
-import { IconButton, InputBase, Paper } from "@mui/material";
+import { Drawer, IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import Cart from "./Cart";
 
 function Header() {
   const pathname = usePathname();
   const [cookie, setCookie] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
 
   useEffect(() => {
     const cookieValue = Cookies.get("cookie");
@@ -53,11 +59,20 @@ function Header() {
             inputProps={{ "aria-label": "Хайх" }}
           />
         </div>
-        <Link href="/cart" className="flex gap-2 cursor-pointer items-center">
+        <button
+          onClick={toggleDrawer(true)}
+          className="flex gap-2 cursor-pointer items-center"
+        >
           <ShoppingBasketOutlinedIcon className="w-[30px] h-[30px]" />
           <h1>Сагс</h1>
-        </Link>
-        <Link href={!cookie ? "/login" : "/profile"} className="flex gap-2 cursor-pointer items-center">
+        </button>
+        <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
+          <Cart toggleDrawer={toggleDrawer} open={open} />
+        </Drawer>
+        <Link
+          href={!cookie ? "/login" : "/profile"}
+          className="flex gap-2 cursor-pointer items-center"
+        >
           <PermIdentityOutlinedIcon
             className={`w-[30px] h-[30px] ${!cookie ? "" : "text-green-400"}`}
           />

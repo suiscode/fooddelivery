@@ -1,14 +1,37 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import HomeBar from "./HomeBar";
 import { Stack } from "@mui/material";
+import axios from "axios";
+import OnsaleBar from "./OnsaleBar";
 
 function HomeSpecials() {
+  const [category, setCategory] = useState([]);
+
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  const fetchCategory = async () => {
+    const res = await axios.get("/api/category");
+    setCategory(res.data);
+  };
+
+
+
+  interface Food {
+    _id: string;
+    name: string;
+    foodId: [string];
+  }
+
   return (
-    <Stack sx={{width:'100%', paddingInline:'120px'}}>
-      <HomeBar label={"Хямдралтай"} link={"/"} />
-      <HomeBar label={"Үндсэн хоол"} link={"/"} />
-      <HomeBar label={"Салад ба зууш"} link={"/"} />
-      <HomeBar label={"Амттан"} link={"/"} />
+    <Stack sx={{ width: "100%", paddingInline: "120px" }} spacing={10}>
+      <OnsaleBar />
+      {category.map((item: Food) => (
+        <HomeBar key={item._id} item={item} />
+      ))}
     </Stack>
   );
 }

@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { use, useEffect, useState } from "react";
 import FoodCard from "../components/FoodCard";
 
-function HomeBar({ item }: any) {
+function OnsaleBar({ item }: any) {
   const [food, setFood] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +17,8 @@ function HomeBar({ item }: any) {
   const fetchFood = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/food?category=${item.name}&amount=4`);
+      const res = await axios.get(`/api/food?sale=true&amount=4`);
+      console.log(res);
       setFood(res.data);
       setLoading(false);
     } catch (error) {
@@ -35,7 +36,7 @@ function HomeBar({ item }: any) {
       >
         <Stack direction={"row"} alignItems={"center"} sx={{ width: "100%" }}>
           <Image src="/Star.png" width={32} height={32} alt="star" />
-          <Typography>{item.name}</Typography>
+          <Typography>Хямдралтай</Typography>
         </Stack>
         <Link
           href="/"
@@ -54,4 +55,4 @@ function HomeBar({ item }: any) {
   );
 }
 
-export default HomeBar;
+export default OnsaleBar;
