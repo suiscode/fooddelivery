@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const middleware = async(req) => {
+export const middleware = async (req) => {
   const token = req.cookies.get("cookie")?.value;
   const requestedUrl = new URL(req.url);
   if (
