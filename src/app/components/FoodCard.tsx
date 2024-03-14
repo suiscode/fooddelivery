@@ -2,22 +2,27 @@
 import { Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import { relative } from "path";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddToCart from "./AddToCart";
+import { useGlobalContext } from "../context/Context";
 
 function FoodCard({ item, size }: any) {
   const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${item.foodImage}.jpg`;
 
-  const [open, setOpen] = useState(false);
+  const { open, setOpen, modalInfo, setModalInfo } = useGlobalContext();
+
   const handleOpen = () => {
     if (!open) {
+      console.log(item);
+
+      console.log("item");
+      setModalInfo({ ...item });
       setOpen(true);
     }
   };
-  const handleClose = () => setOpen(false);
 
   return (
-    <Stack width={size}>
+    <Stack width={size} className="hover:p-1 cursor-pointer">
       <Stack
         onClick={handleOpen}
         width={"100%"}
@@ -47,12 +52,6 @@ function FoodCard({ item, size }: any) {
           </Typography>
         )}
       </Stack>
-
-      <AddToCart
-        item={item}
-        open={open}
-        handleClose={handleClose}
-      />
     </Stack>
   );
 }

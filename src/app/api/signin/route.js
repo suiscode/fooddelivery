@@ -12,7 +12,6 @@ export const POST = async (req, res) => {
 
   try {
     const user = await User.find({ email: body.email });
-    console.log(user[0], "zazaza");
     if (
       user.length == 0 ||
       !(await bcrypt.compare(body.password, user[0].password))

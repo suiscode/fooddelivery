@@ -30,7 +30,6 @@ function RightPage() {
         return;
       }
       const res = await axios.get(`/api/food?category=${queryParam}`);
-      console.log(res);
       setData(res.data);
       setLoading(false);
     } catch (error) {

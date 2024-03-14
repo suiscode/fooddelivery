@@ -5,13 +5,18 @@ import Homemenu from "./homepage/Homemenu";
 import HomeBar from "./homepage/HomeBar";
 import HomeSpecials from "./homepage/HomeSpecials";
 import { Stack } from "@mui/material";
+import AddToCart from "./components/AddToCart";
+import { useGlobalContext } from "./context/Context";
 
 function Home() {
+
+
   return (
     <Stack alignItems={"center"} sx={{ width: "100%", gap: "120px" }}>
       <HeroPage />
       <Homemenu />
       <HomeSpecials />
+     
     </Stack>
   );
 }

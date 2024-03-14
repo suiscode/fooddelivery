@@ -7,9 +7,7 @@ export const POST = async (req, res) => {
   const body = await req.json();
   try {
     connectToDb();
-    console.log(body);
     const foodfind = await Food.find({ foodName: body.foodName });
-    console.log(body.foodName);
     if (foodfind.length >= 1) {
       return NextResponse.json("Food exists", { status: 400 });
     }
@@ -29,7 +27,6 @@ export const POST = async (req, res) => {
       { new: true }
     );
 
-    console.log(foodfind.length, "hoof");
     return NextResponse.json("hello", { status: 200 });
   } catch (e) {
     console.log(e);
@@ -46,16 +43,25 @@ export const GET = async (req, res) => {
     const onSale = req.nextUrl.searchParams.get("sale");
     if (onSale) {
       foodfind = await Food.find({ foodOnSale: true }).limit(amount);
-      console.log(foodfind, " OLSIISHU HAHAHA");
       return NextResponse.json(foodfind, { status: 200 });
     }
 
-    const { foodId } = await Category.findOne({ name: categoryName });
-    if (amount) {
-      foodfind = await Food.find({ _id: { $in: foodId } }).limit(amount);
-    } else {
-      foodfind = await Food.find({ _id: { $in: foodId } });
+    if (categoryName == "onsale") {
+      foodfind = await Food.find({ foodOnSale: true });
+      return NextResponse.json(foodfind, { status: 200 });
     }
+
+    if (categoryName) {
+      const { foodId } = await Category.findOne({ name: categoryName });
+      if (amount) {
+        foodfind = await Food.find({ _id: { $in: foodId } }).limit(amount);
+      } else {
+        foodfind = await Food.find({ _id: { $in: foodId } });
+      }
+    } else {
+      foodfind = await Food.find();
+    }
+
     return NextResponse.json(foodfind, { status: 200 });
   } catch (e) {
     return NextResponse.json(e, { status: 500 });
@@ -66,7 +72,6 @@ export const PUT = async (req, res) => {
   const { items } = await req.json();
 
   try {
-    console.log(items);
     return NextResponse.json("hi", { status: 200 });
   } catch (e) {
     return NextResponse.json(e, { status: 500 });

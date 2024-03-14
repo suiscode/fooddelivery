@@ -15,7 +15,6 @@ export const PUT = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(id, {
       imageUrl: body.publicID,
     });
-    console.log(body);
 
     return NextResponse.json("hello", { status: 200 });
   } catch (e) {

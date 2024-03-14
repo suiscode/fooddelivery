@@ -35,7 +35,6 @@ function ProfilePage() {
     const response = await axios.get("/api/user");
     setUser(response.data.data);
     setLoading(false);
-    console.log("ran");
   };
   useEffect(() => {
   
@@ -62,7 +61,6 @@ function ProfilePage() {
           "Content-Type": `multipart/form-data`,
         },
       });
-      console.log(response);
       const res = await axios.put('/api/user/image',{
         publicID:response.data.public_id,
       })

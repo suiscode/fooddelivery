@@ -38,7 +38,7 @@ function HomeBar({ item }: any) {
           <Typography>{item.name}</Typography>
         </Stack>
         <Link
-          href="/"
+          href={`/menu?category=${item.name}`}
           className="text-[#18BA51] w-[200px] flex items-center gap-4"
         >
           Бүгдийг харах

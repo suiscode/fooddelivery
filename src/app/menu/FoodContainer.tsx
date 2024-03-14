@@ -20,10 +20,20 @@ function FoodContainer() {
     try {
       setLoading(true);
       if (!queryParam) {
+        const res = await axios.get(`/api/food`);
+        setData(res.data);
+        setLoading(false);
         return;
       }
+
+      if (queryParam == 'onsale') {
+        const res = await axios.get(`/api/food?category=${queryParam}`);
+        setData(res.data);
+        setLoading(false);
+        return;
+      }
+
       const res = await axios.get(`/api/food?category=${queryParam}`);
-      console.log(res);
       setData(res.data);
       setLoading(false);
     } catch (error) {

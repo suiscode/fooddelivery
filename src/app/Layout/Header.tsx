@@ -14,8 +14,20 @@ function Header() {
   const pathname = usePathname();
   const [cookie, setCookie] = useState("");
   const [open, setOpen] = React.useState(false);
+  const [items, setItems] = useState<any[]>([]);
+
+  
+
+  useEffect(() => {
+    console.log(items);
+    
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  }, [open,items]);
 
   const toggleDrawer = (newOpen: boolean) => () => {
+    const itemsJSON = localStorage.getItem("cartItems");
+    const itemsFromLocal: any[] = itemsJSON ? JSON.parse(itemsJSON) : [];
+    setItems(itemsFromLocal);
     setOpen(newOpen);
   };
 
@@ -67,7 +79,7 @@ function Header() {
           <h1>Сагс</h1>
         </button>
         <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
-          <Cart toggleDrawer={toggleDrawer} open={open} />
+          <Cart toggleDrawer={toggleDrawer} open={open} items={items} setItems={setItems}/>
         </Drawer>
         <Link
           href={!cookie ? "/login" : "/profile"}

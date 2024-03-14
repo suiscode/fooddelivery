@@ -18,18 +18,18 @@ function Homemenu() {
         img={<ImportContactsOutlinedIcon className="w-10 h-10 m-6 mb-10" />}
       />
       <Homemenuper
-        title={"Хүргэлтийн төлөв хянах"}
+        title={"Шуурхай хүргэлт"}
         desc={"Захиалга бэлтгэлийн явцыг хянах"}
         img={<AccessTimeOutlinedIcon className="w-10 h-10 m-6 mb-10" />}
       />
       <Homemenuper
-        title={"Хүргэлтийн төлөв хянах"}
+        title={"Эрүүл, баталгаат орц"}
         desc={"Захиалга бэлтгэлийн явцыг хянах"}
         img={<EggAltOutlinedIcon className="w-10 h-10 m-6 mb-10" />}
       />
 
       <Homemenuper
-        title={"Хүргэлтийн төлөв хянах"}
+        title={"Хоолны өргөн сонголт"}
         desc={"Захиалга бэлтгэлийн явцыг хянах"}
         img={<ImportContactsOutlinedIcon className="w-10 h-10 m-6 mb-10" />}
       />
@@ -38,3 +38,5 @@ function Homemenu() {
 }
 
 export default Homemenu;
+
+

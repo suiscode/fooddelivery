@@ -6,9 +6,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useGlobalContext } from "../context/Context";
 
 function AddToCart({ item, open, handleClose }: any) {
-  const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${item.foodImage}.jpg`;
+  const { modalInfo } = useGlobalContext();
 
-  const { setCartInfo, cartInfo } = useGlobalContext();
+  const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${modalInfo.foodImage}.jpg`;
 
   const [amount, setAmount] = useState(1);
   const style = {
@@ -29,16 +29,15 @@ function AddToCart({ item, open, handleClose }: any) {
   }
 
   const handleCart = () => {
-    setCartInfo((prev: CartInfo[]) => [
-      ...prev,
-      { id: item._id, amount: amount },
-    ]);
-    console.log("sagslagdav");
+    const existingCartItemsJSON = localStorage.getItem("cartItems");
+    const existingCartItems: any[] = existingCartItemsJSON
+      ? JSON.parse(existingCartItemsJSON)
+      : [];
+    existingCartItems.push({ ...modalInfo, amount: amount });
+    localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
+    console.log("Item added to cart:", modalInfo);
+    handleClose();
   };
-
-  useEffect(() => {
-    console.log(cartInfo);
-  }, [cartInfo]);
 
   const handleDec = () => {
     if (amount == 1) return;
@@ -72,10 +71,12 @@ function AddToCart({ item, open, handleClose }: any) {
           />
           <Stack spacing={-1}>
             <Typography fontSize={"28px"} fontWeight={"700"}>
-              {item.foodName}
+              {modalInfo.foodName}
             </Typography>
             <Typography variant="h6" className="text-[#18BA51]">
-              {item.foodOnSale ? item.foodSalePrice : item.foodPrice}
+              {modalInfo.foodOnSale
+                ? modalInfo.foodSalePrice
+                : modalInfo.foodPrice}
             </Typography>
           </Stack>
           <Stack>
@@ -83,7 +84,7 @@ function AddToCart({ item, open, handleClose }: any) {
               Orts
             </Typography>
             <Typography className="bg-[#F6F6F6] text-[#767676] rounded-lg p-2">
-              {item.foodRecipe}
+              {modalInfo.foodRecipe}
             </Typography>
           </Stack>
           <Typography variant="h6" fontWeight={"700"}>

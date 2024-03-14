@@ -18,7 +18,6 @@ function OnsaleBar({ item }: any) {
     try {
       setLoading(true);
       const res = await axios.get(`/api/food?sale=true&amount=4`);
-      console.log(res);
       setFood(res.data);
       setLoading(false);
     } catch (error) {
@@ -39,7 +38,7 @@ function OnsaleBar({ item }: any) {
           <Typography>Хямдралтай</Typography>
         </Stack>
         <Link
-          href="/"
+          href="/menu?category=onsale"
           className="text-[#18BA51] w-[200px] flex items-center gap-4"
         >
           Бүгдийг харах

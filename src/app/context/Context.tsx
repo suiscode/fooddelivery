@@ -14,15 +14,19 @@ export const GlobalContextProvider = ({
   children,
 }: GlobalContextProviderProps) => {
   const [refresh, setRefresh] = useState(false);
-  const [cartInfo, setCartInfo] = useState([]);
+  const [modalInfo, setModalInfo] = useState({});
+  const [open, setOpen] = useState(false);
+
 
   return (
     <GlobalContext.Provider
       value={{
         refresh,
         setRefresh,
-        cartInfo,
-        setCartInfo,
+        modalInfo,
+        setModalInfo,
+        open,
+        setOpen
       }}
     >
       {children}

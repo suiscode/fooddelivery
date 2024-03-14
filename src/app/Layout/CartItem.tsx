@@ -2,18 +2,18 @@
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
-function CartItem() {
-  const [amount, setAmount] = useState(1);
 
-  const handleDec = () => {
-    if (amount == 1) return;
-    setAmount((prev) => prev - 1);
-  };
+function CartItem({ item, handleRemove, handleDec, handleInc }: any) {
+  const [amount, setAmount] = useState(item.amount);
 
-  const handleInc = () => {
-    setAmount((prev) => prev + 1);
-  };
+
+
+
+
+  const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${item.foodImage}.jpg`;
+
   return (
     <Stack
       className="border-y-[1.5px] py-4"
@@ -22,45 +22,45 @@ function CartItem() {
     >
       <Stack className=" flex border-2 p-2 relative w-[245px] h-[150px]">
         <Image
-          // src={imageURL}
-          src="/nopfp.png"
+          src={imageURL}
           alt="food"
           fill
           style={{ objectFit: "cover" }}
         />
       </Stack>
       <Stack height={"150px"} justifyContent={"space-between"} width={"250px"}>
-        <Stack spacing={0}>
+        <Stack spacing={0} className="relative">
           <Typography fontSize={"18px"} fontWeight={"700"}>
-            {/* {item.foodName} */}
-            Name
+            {item.foodName}
           </Typography>
           <Typography
             fontSize={"18px"}
             fontWeight={"700"}
             className="text-[#18BA51]"
           >
-            {/* {item.foodOnSale ? item.foodSalePrice : item.foodPrice} */}
-            Price
+            {item.foodOnSale ? item.foodSalePrice : item.foodPrice}
           </Typography>
+          <CloseIcon
+            onClick={() => handleRemove(item._id)}
+            className="cursor-pointer self-end absolute top-5 right-5"
+          />
         </Stack>
         <Stack>
           <Typography className="text-[#767676] rounded-lg p-2">
-            {/* {item.foodRecipe} */}
-            Orts
+            {item.foodRecipe}
           </Typography>
         </Stack>
 
         <Stack direction={"row"} spacing={4}>
           <button
-            onClick={handleDec}
+            onClick={()=>handleDec(item._id)}
             className="bg-[#18BA51] text-white text-2xl px-3 rounded-lg text-center"
           >
             -
           </button>
           <Typography>{amount}</Typography>
           <button
-            onClick={handleInc}
+            onClick={()=>handleInc(item._id)}
             className="bg-[#18BA51] text-white text-2xl px-3 rounded-lg text-center"
           >
             +

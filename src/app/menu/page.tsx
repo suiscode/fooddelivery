@@ -4,8 +4,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MenuCategory from "./MenuCategory";
 import FoodContainer from "./FoodContainer";
+import { useSearchParams } from "next/navigation";
 
 function MenuPage() {
+  
+  const searchParams = useSearchParams();
+  const queryParam = searchParams.get("category");
+
+  
+
   const [data, setData] = useState([]);
   useEffect(() => {
     fetchData();

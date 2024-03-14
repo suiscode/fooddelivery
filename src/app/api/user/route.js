@@ -31,7 +31,6 @@ export const PUT = async (req, res) => {
       email: body.email,
     });
 
-    console.log(user);
     return NextResponse.json("hello", { status: 200 });
   } catch (e) {
     console.log(e);
@@ -54,7 +53,6 @@ export const POST = async (req, res) => {
       email: body.email,
     });
 
-    console.log(user);
     return NextResponse.json("hello", { status: 200 });
   } catch (e) {
     console.log(e);

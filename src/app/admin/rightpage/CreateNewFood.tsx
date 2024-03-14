@@ -64,7 +64,6 @@ function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
     : "";
 
   const handleContinue = async () => {
-    console.log(foodInputs);
     if (!foodInputs.foodCategory) {
       setError("Choose category");
       return;
@@ -98,7 +97,6 @@ function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
           "Content-Type": `multipart/form-data`,
         },
       });
-      console.log(response);
       setFoodInputs((prev) => ({
         ...prev,
         foodImage: response.data.public_id,

@@ -6,7 +6,6 @@ import Image from "next/image";
 
 function AvatarPage({user,handleFileUpload}:any) {
 
-  console.log(user.imageUrl);
 
   const image = `https://res.cloudinary.com/deifnil5n/image/upload/v1710123269/${user.imageUrl}.jpg`
   

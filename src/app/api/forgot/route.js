@@ -30,7 +30,6 @@ export const POST = async (req, res) => {
         text: `Reset code ${randomNumber}`, // plain text body
         html: `<b>${randomNumber}Hello world?</b>`, // html body
       });
-      console.log("Message sent: %s", info.messageId);
       return NextResponse.json(randomNumber, { status: 200 });
     }
     return NextResponse.json("Email does not exists", { status: 400 });
@@ -44,7 +43,6 @@ export const PUT = async (req, res) => {
   const body = await req.json();
 
   try {
-    console.log(body);
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
     const filter = { email: body.email };
