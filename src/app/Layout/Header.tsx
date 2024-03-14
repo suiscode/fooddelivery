@@ -9,6 +9,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import Cart from "./Cart";
+import AddToCart from "../components/AddToCart";
+import { useGlobalContext } from "../context/Context";
 
 function Header() {
   const pathname = usePathname();
@@ -16,13 +18,11 @@ function Header() {
   const [open, setOpen] = React.useState(false);
   const [items, setItems] = useState<any[]>([]);
 
-  
-
   useEffect(() => {
     console.log(items);
-    
+
     localStorage.setItem("cartItems", JSON.stringify(items));
-  }, [open,items]);
+  }, [open, items]);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     const itemsJSON = localStorage.getItem("cartItems");
@@ -41,6 +41,10 @@ function Header() {
     { title: "ХООЛНЫ ЦЭС", href: "/menu" },
     { title: "ХҮРГЭЛТИЙН БҮС", href: "/delivery" },
   ];
+
+  const { openModal, setOpenModal } = useGlobalContext();
+
+  const handleClose = () => setOpenModal(false);
 
   return (
     <div className="px-32 py-4 flex justify-between border-2 w-full">
@@ -79,7 +83,12 @@ function Header() {
           <h1>Сагс</h1>
         </button>
         <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
-          <Cart toggleDrawer={toggleDrawer} open={open} items={items} setItems={setItems}/>
+          <Cart
+            toggleDrawer={toggleDrawer}
+            open={open}
+            items={items}
+            setItems={setItems}
+          />
         </Drawer>
         <Link
           href={!cookie ? "/login" : "/profile"}
@@ -95,6 +104,7 @@ function Header() {
           )}
         </Link>
       </div>
+      {openModal && <AddToCart openModal={openModal} handleClose={handleClose} />}
     </div>
   );
 }

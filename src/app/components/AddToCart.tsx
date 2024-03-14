@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useGlobalContext } from "../context/Context";
 
-function AddToCart({ item, open, handleClose }: any) {
+function AddToCart({ item, openModal, handleClose }: any) {
   const { modalInfo } = useGlobalContext();
 
   const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${modalInfo.foodImage}.jpg`;
@@ -50,7 +50,7 @@ function AddToCart({ item, open, handleClose }: any) {
 
   return (
     <Modal
-      open={open}
+      open={openModal}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

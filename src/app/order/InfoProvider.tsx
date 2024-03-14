@@ -1,9 +1,14 @@
+'use client'
 import { Stack, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SearchInput from "./SearchInput";
 
 function InfoProvider() {
+
+
+  const [search,setSearch] = useState('')
+
   return (
     <Stack
       width={"100%"}
@@ -18,11 +23,13 @@ function InfoProvider() {
         <Stack className="relative" justifyContent={"center"}>
           <input
             type="text"
+            value={search}
+            onChange={e=>setSearch(e.target.value)}
             placeholder="Дүүрэг сонгоно уу"
             className="bg-[#F7F7F8] pl-12 outline-none h-12 rounded-md border-[2px] border-[#ECEDF0]"
           />
           <FmdGoodOutlinedIcon className="absolute w-6 h-6 left-4" />
-          <SearchInput/>
+          {search && <SearchInput/>}
         </Stack>
       </Stack>
       <Stack spacing={1}>

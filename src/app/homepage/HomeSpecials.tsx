@@ -25,9 +25,6 @@ function HomeSpecials() {
     foodId: [string];
   }
 
-  const { open, setOpen } = useGlobalContext();
-
-  const handleClose = () => setOpen(false);
 
   return (
     <Stack sx={{ width: "100%", paddingInline: "120px" }} spacing={10}>
@@ -35,9 +32,7 @@ function HomeSpecials() {
       {category.map((item: Food) => (
         <HomeBar key={item._id} item={item} />
       ))}
-      {open && (
-        <AddToCart open={open} handleClose={handleClose} />
-      )}
+     
     </Stack>
   );
 }

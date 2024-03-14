@@ -9,15 +9,15 @@ import { useGlobalContext } from "../context/Context";
 function FoodCard({ item, size }: any) {
   const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${item.foodImage}.jpg`;
 
-  const { open, setOpen, modalInfo, setModalInfo } = useGlobalContext();
+  const { openModal, setOpenModal, modalInfo, setModalInfo } = useGlobalContext();
 
   const handleOpen = () => {
-    if (!open) {
+    if (!openModal) {
       console.log(item);
 
       console.log("item");
       setModalInfo({ ...item });
-      setOpen(true);
+      setOpenModal(true);
     }
   };
 

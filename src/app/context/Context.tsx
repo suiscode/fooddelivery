@@ -15,7 +15,7 @@ export const GlobalContextProvider = ({
 }: GlobalContextProviderProps) => {
   const [refresh, setRefresh] = useState(false);
   const [modalInfo, setModalInfo] = useState({});
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
 
   return (
@@ -25,8 +25,8 @@ export const GlobalContextProvider = ({
         setRefresh,
         modalInfo,
         setModalInfo,
-        open,
-        setOpen
+        openModal,
+        setOpenModal
       }}
     >
       {children}
