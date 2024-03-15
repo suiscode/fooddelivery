@@ -36,6 +36,8 @@ export const POST = async (req, res) => {
 
 export const GET = async (req, res) => {
   try {
+    connectToDb();
+
     let foodfind;
 
     const categoryName = req.nextUrl.searchParams.get("category");
@@ -70,6 +72,8 @@ export const GET = async (req, res) => {
 
 export const PUT = async (req, res) => {
   const { items } = await req.json();
+  connectToDb();
+
 
   try {
     return NextResponse.json("hi", { status: 200 });

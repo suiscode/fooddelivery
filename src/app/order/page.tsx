@@ -1,9 +1,12 @@
+"use client";
 import { Stack } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Stepone from "./Stepone";
 import Steptwo from "./Steptwo";
 
 function OrderPage() {
+  const [check, setCheck] = useState<boolean>(false);
+
   return (
     <Stack
       direction={"row"}
@@ -11,8 +14,8 @@ function OrderPage() {
       width={"75%"}
       justifyContent={"space-between"}
     >
-      <Stepone />
-      <Steptwo />
+      <Stepone check={check} setCheck={setCheck} />
+      <Steptwo check={check} />
     </Stack>
   );
 }

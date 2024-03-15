@@ -16,7 +16,6 @@ function Cart({ toggleDrawer, items, setItems }: any) {
   let total = 0;
 
   items.forEach((item: any) => {
-    console.log(item.foodSalePrice);
 
     total +=
       item.foodSalePrice !== null
@@ -51,11 +50,6 @@ function Cart({ toggleDrawer, items, setItems }: any) {
     setItems((prev: any[]) => {
       return prev.filter((item) => item._id !== id);
     });
-  };
-
-  const handleLink = () => {
-    // router.push("/order");
-    toggleDrawer(false);
   };
 
   return (

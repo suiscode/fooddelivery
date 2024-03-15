@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { Drawer, IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -13,10 +13,12 @@ import AddToCart from "../components/AddToCart";
 import { useGlobalContext } from "../context/Context";
 
 function Header() {
+  const router = useRouter();
   const pathname = usePathname();
   const [cookie, setCookie] = useState("");
   const [open, setOpen] = React.useState(false);
   const [items, setItems] = useState<any[]>([]);
+  const [search, setSearch] = useState<any>("");
 
   useEffect(() => {
     console.log(items);
@@ -46,6 +48,18 @@ function Header() {
 
   const handleClose = () => setOpenModal(false);
 
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && search.trim() !== "") {
+      router.push(`/search?query=${search}`);
+    }
+  };
+
+  const handleSearchIcon = () => {
+    if (search.trim() !== "") {
+      router.push(`/search?query=${search}`);
+    }
+  };
+
   return (
     <div className="px-32 py-4 flex justify-between border-2 w-full">
       <div className="flex items-center gap-4">
@@ -66,13 +80,21 @@ function Header() {
       </div>
       <div className="flex items-center gap-4">
         <div className="border-2 rounded-lg border-black w-[260px]">
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <IconButton
+            onClick={handleSearchIcon}
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+          >
             <SearchIcon />
           </IconButton>
           <InputBase
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             sx={{ ml: 1, flex: 1 }}
             placeholder="Хайх"
             inputProps={{ "aria-label": "Хайх" }}
+            onKeyUpCapture={handleSearch}
           />
         </div>
         <button
@@ -104,7 +126,9 @@ function Header() {
           )}
         </Link>
       </div>
-      {openModal && <AddToCart openModal={openModal} handleClose={handleClose} />}
+      {openModal && (
+        <AddToCart openModal={openModal} handleClose={handleClose} />
+      )}
     </div>
   );
 }
