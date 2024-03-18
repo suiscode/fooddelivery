@@ -8,10 +8,6 @@ import CloseIcon from "@mui/icons-material/Close";
 function CartItem({ item, handleRemove, handleDec, handleInc }: any) {
   const [amount, setAmount] = useState(item.amount);
 
-
-
-
-
   const imageURL = `https://res.cloudinary.com/deifnil5n/image/upload/v1710223136/${item.foodImage}.jpg`;
 
   return (

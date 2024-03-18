@@ -5,22 +5,33 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SearchInput from "./SearchInput";
 import axios from "axios";
 
-function InfoProvider({ setCheck }: any) {
-  const [search, setSearch] = useState<string>("");
+interface OrderInfo {
+  search: string;
+  cardCheck: boolean;
+  cashCheck: boolean;
+  additionalInfo: string;
+  phoneNumber: string;
+}
+
+function InfoProvider({ setCheck, orderInfo, handleChange,setOrderInfo }: any) {
+  const { search, cardCheck, cashCheck, additionalInfo, phoneNumber } =
+    orderInfo;
   const [state, setState] = useState<boolean>(false);
   const [data, setData] = useState<any[]>([]);
-  const [cardCheck, setCardCheck] = useState<boolean>(false);
-  const [cashCheck, setCashCheck] = useState<boolean>(false);
-  const additionalInfo = useRef<HTMLTextAreaElement>(null);
-  const phoneNumber = useRef<HTMLInputElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOrderInfo((prev:OrderInfo)=>({...prev,search:e.target.value}))
     if (!state) setState(true);
   };
-
   useEffect(() => {
-    if (search && additionalInfo && phoneNumber && (cardCheck || cashCheck)) {
+    console.log(orderInfo);
+
+    if (
+      search &&
+      additionalInfo &&
+      phoneNumber.length === 8 &&
+      (cardCheck || cashCheck)
+    ) {
       setCheck(true);
     } else {
       setCheck(false);
@@ -57,7 +68,8 @@ function InfoProvider({ setCheck }: any) {
           <input
             type="text"
             value={search}
-            onChange={handleChange}
+            name="search"
+            onChange={handleChanges}
             placeholder="Дүүрэг сонгоно уу"
             className="bg-[#F7F7F8] pl-12 outline-none h-12 rounded-md border-[2px] border-[#ECEDF0]"
           />
@@ -65,7 +77,7 @@ function InfoProvider({ setCheck }: any) {
           {state && (
             <SearchInput
               search={search}
-              setSearch={setSearch}
+              setOrderInfo={setOrderInfo}
               data={data}
               state={state}
               setState={setState}
@@ -77,7 +89,9 @@ function InfoProvider({ setCheck }: any) {
         <Typography>Нэмэлт мэдээлэл</Typography>
 
         <textarea
-          ref={additionalInfo}
+          value={additionalInfo}
+          name="additionalInfo"
+          onChange={handleChange}
           className="bg-[#F7F7F8] border-[#ECEDF0] border-[2px] h-[160px] px-4 py-2 rounded-md outline-none"
           placeholder="Орц, давхар, орцны код ..."
         ></textarea>
@@ -86,7 +100,10 @@ function InfoProvider({ setCheck }: any) {
         <Typography>Утасны дугаар*</Typography>
 
         <input
-          ref={phoneNumber}
+          onWheel={(e) => e.currentTarget.blur()}
+          value={phoneNumber}
+          name="phoneNumber"
+          onChange={handleChange}
           type="number"
           className="bg-[#F7F7F8] border-[#ECEDF0] border-[2px] px-4 py-2 rounded-md outline-none"
           placeholder="Утасны дугаараа оруулна уу*"
@@ -98,14 +115,16 @@ function InfoProvider({ setCheck }: any) {
         <Stack direction={"row"} alignItems={"center"}>
           <Checkbox
             checked={cardCheck}
-            onChange={(e) => setCardCheck(e.target.checked)}
+            name="cardCheck"
+            onChange={handleChange}
             inputProps={{ "aria-label": "controlled" }}
           />
           <label>Бэлнээр</label>
           <Checkbox
             className="ml-32"
             checked={cashCheck}
-            onChange={(e) => setCashCheck(e.target.checked)}
+            name="cashCheck"
+            onChange={handleChange}
             inputProps={{ "aria-label": "controlled" }}
           />
           <label>Картаар</label>

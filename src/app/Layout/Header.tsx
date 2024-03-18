@@ -20,10 +20,10 @@ function Header() {
   const [items, setItems] = useState<any[]>([]);
   const [search, setSearch] = useState<any>("");
 
-  useEffect(() => {
-    console.log(items);
+  const value = true
 
-    localStorage.setItem("cartItems", JSON.stringify(items));
+  useEffect(() => {
+    if(open) localStorage.setItem("cartItems", JSON.stringify(items));
   }, [open, items]);
 
   const toggleDrawer = (newOpen: boolean) => () => {

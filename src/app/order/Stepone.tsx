@@ -5,7 +5,7 @@ import InfoProvider from "./InfoProvider";
 import StepTitle from "./Steplabel/StepTitle";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
-function Stepone({ check, setCheck }: any) {
+function Stepone({ check, setCheck,orderInfo,handleChange,setOrderInfo }: any) {
   return (
     <Stack
       alignItems={"start"}
@@ -59,7 +59,12 @@ function Stepone({ check, setCheck }: any) {
         />
       </Stack>
 
-      <InfoProvider setCheck={setCheck} />
+      <InfoProvider
+        setCheck={setCheck}
+        orderInfo={orderInfo}
+        handleChange={handleChange}
+        setOrderInfo={setOrderInfo}
+      />
     </Stack>
   );
 }

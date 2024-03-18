@@ -2,10 +2,18 @@ import { Stack, Typography } from "@mui/material";
 import React from "react";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 
-function SearchInput({ data, state, setState, search, setSearch }: any) {
+interface OrderInfo {
+  search: string;
+  cardCheck: boolean;
+  cashCheck: boolean;
+  additionalInfo: string;
+  phoneNumber: string;
+}
+
+function SearchInput({ data, setState, setOrderInfo }: any) {
   const handleClick = (address: string) => {
     console.log(address);
-    setSearch(address);
+    setOrderInfo((prev:OrderInfo)=>({...prev,search:address}))
     setState(false);
   };
 

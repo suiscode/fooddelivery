@@ -1,3 +1,15 @@
+import { Stack } from "@mui/material";
+import FoodCard from "../components/FoodCard";
+
+interface FoodArray {
+  foodName: string;
+  foodImage: string;
+  foodRecipe: string;
+  foodSalePrice?: number;
+  foodPrice: string;
+  foodOnSale: boolean;
+}
+
 type SearchPageType = {
   searchParams: { query: string };
 };
@@ -18,21 +30,14 @@ async function Page({ searchParams }: SearchPageType) {
 
   const data = await searchData(query);
   console.log(data);
-  //   search = param || "";
 
-  //   useEffect(() => {
-  //     const fetchFoods = async () => {
-  //       try {
-  //         const res = await axios.get("/api/search?query=22");
-  //         console.log(res);
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     };
-  //     fetchFoods();
-  //   }, [param]);
-
-  return <div>sss</div>;
+  return (
+    <Stack direction={'row'} className="flex-wrap gap-10" border={2} width={'100%'} height={'100%'} px={'120px'} py={'48px'}>
+      {data.map((item: FoodArray) => (
+        <FoodCard item={item} size={'20%'}/>
+      ))}
+    </Stack>
+  );
 }
 
 export default Page;

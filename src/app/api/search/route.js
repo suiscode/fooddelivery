@@ -6,31 +6,33 @@ import mongoose from "mongoose";
 export const GET = async (req, res) => {
   try {
     connectToDb();
-    let foodfind;
+
     const url = new URL(req.nextUrl);
     console.log(url.searchParams);
 
     const query = req.nextUrl.searchParams.get("query");
-    console.log(query, "search");
-    if (query !== undefined) {
-        console.log(query, 'query in IF');
-      console.log("this worked");
+    console.log(query, "queryqueryquery");
+    console.log(query === "undefined");
+    if (query !== "undefined") {
+      console.log(query, "THIS WORKED WHICH MEANS IS NOT undefined");
       const filter = {
         $or: [
+          {
+            foodPrice: {
+              $regex: query,
+            },
+          },
           {
             foodName: {
               $regex: query,
               $options: "i",
             },
           },
-          {
-            foodPrice: {
-              $regex: query,
-            },
-          },
         ],
       };
-      foodfind = await Food.find(filter);
+
+     const foodfind = await Food.find(filter);
+
       return NextResponse.json(foodfind, { status: 200 });
     }
     foodfind = await Food.find();

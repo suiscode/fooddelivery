@@ -29,6 +29,8 @@ function AddToCart({ item, openModal, handleClose }: any) {
   }
 
   const handleCart = () => {
+    console.log('worked');
+    
     const existingCartItemsJSON = localStorage.getItem("cartItems");
     const existingCartItems: any[] = existingCartItemsJSON
       ? JSON.parse(existingCartItemsJSON)

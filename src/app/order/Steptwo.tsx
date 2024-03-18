@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import OrderCart from "./OrderCart";
 
-function Steptwo({ check }: any) {
+function Steptwo({ check,orderInfo }: any) {
   const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
@@ -20,6 +20,11 @@ function Steptwo({ check }: any) {
         ? item.foodSalePrice * item.amount
         : item.foodPrice * item.amount;
   });
+
+  const handleSubmit=async()=>{
+    console.log(orderInfo);
+    
+  }
 
   return (
     <Stack
@@ -58,6 +63,7 @@ function Steptwo({ check }: any) {
           </Stack>
           <button
             disabled={!check}
+            onClick={()=>handleSubmit()}
             className="px-16 py-2 border-2 rounded-md disabled:bg-[#EEEFF2] disabled:text-[#1C2024] disabled:text-opacity-25 bg-[#18BA51] text-white"
           >
             Захиалах
