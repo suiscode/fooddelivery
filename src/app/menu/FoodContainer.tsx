@@ -1,45 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Loading from "../components/Loading";
+import React from "react";
 import FoodCard from "../components/FoodCard";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
 import { Stack } from "@mui/material";
+import { fetchAllFood, fetchFoodByCategory } from "../utils";
 
-function FoodContainer() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+async function FoodContainer({ q }: any) {
+  let foodData;
 
-  const searchParams = useSearchParams();
-  const queryParam = searchParams.get("category");
-
-  useEffect(() => {
-    fetchFood();
-  }, [queryParam]);
-
-  const fetchFood = async () => {
-    try {
-      setLoading(true);
-      if (!queryParam) {
-        const res = await axios.get(`/api/food`);
-        setData(res.data);
-        setLoading(false);
-        return;
-      }
-
-      if (queryParam == 'onsale') {
-        const res = await axios.get(`/api/food?category=${queryParam}`);
-        setData(res.data);
-        setLoading(false);
-        return;
-      }
-
-      const res = await axios.get(`/api/food?category=${queryParam}`);
-      setData(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching food data:", error);
-    }
-  };
+  if (q) {
+    const { foodId } = await fetchFoodByCategory(q);
+    foodData = foodId;
+  } else {
+    foodData = await fetchAllFood();
+  }
+  console.log(foodData);
 
   interface Food {
     _id: string;
@@ -52,15 +25,11 @@ function FoodContainer() {
   }
   return (
     <Stack>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="flex gap-4 flex-wrap">
-          {data.map((item: Food) => (
-            <FoodCard key={item._id} item={item} size={"24%"} />
-          ))}
-        </div>
-      )}
+      <div className="flex gap-4 flex-wrap">
+        {foodData.map((item: Food) => (
+          <FoodCard key={item._id} item={JSON.parse(JSON.stringify(item))} size={"24%"} />
+        ))}
+      </div>
     </Stack>
   );
 }

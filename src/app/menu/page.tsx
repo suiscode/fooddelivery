@@ -1,36 +1,44 @@
-"use client";
 import { Stack } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MenuCategory from "./MenuCategory";
 import FoodContainer from "./FoodContainer";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
+import { fetchCategory } from "@/app/utils";
 
-function MenuPage() {
-  
-  const searchParams = useSearchParams();
-  const queryParam = searchParams.get("category");
+type SearchPageType = {
+  searchParams: { category: string };
+};
 
-  
+async function MenuPage({ searchParams }: SearchPageType) {
+  const q = searchParams?.category || "";
+  console.log(q, 'query');
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // const searchParams = useSearchParams();
+  // const queryParam = searchParams.get("category");
 
-  const fetchData = async () => {
-    const res = await axios.get("/api/category");
-    setData(res.data);
-  };
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // const fetchData = async () => {
+  //   const res = await axios.get("/api/category");
+  //   setData(res.data);
+  // };
+
+  const categories: any = await fetchCategory();
 
   return (
     <Stack spacing={2} width={"100%"} px={"110px"} className="min-h-[800px]">
       <Stack direction={"row"} spacing={2} py={"32px"}>
-        {data.map((category: string, index: number) => (
-          <MenuCategory key={index} category={category} />
+        {categories.map((category: string, index: number) => (
+          <MenuCategory
+            key={index}
+            category={JSON.parse(JSON.stringify(category))}
+          />
         ))}
       </Stack>
-      <FoodContainer />
+      <FoodContainer q={q}/>
     </Stack>
   );
 }

@@ -1,9 +1,7 @@
 "use client";
 import { Modal, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { relative } from "path";
 import React, { useEffect, useState } from "react";
-import AddToCart from "./AddToCart";
 import { useGlobalContext } from "../context/Context";
 
 function FoodCard({ item, size }: any) {

@@ -1,21 +1,30 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function MenuCategory({ category }: any) {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
   const queryParam = searchParams.get("category");
+
+  const handleClick = () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("category", category.name);
+    replace(`${pathname}?${params}`);
+  };
+
   return (
-    <Link
-      className="border-2 w-[24%] py-2 rounded-lg"
-      href={`/menu?category=${category.name}`}
+    <Stack
       style={
-        category.name === queryParam
-          ? { backgroundColor: "#18BA51" }
-          : { backgroundColor: "white" }
+        category.name !== queryParam
+          ? { backgroundColor: "white" }
+          : { backgroundColor: "black" }
       }
+      className={`border-2 w-[24%] py-2 rounded-lg cursor-pointer hover:border-gray-400`}
+      onClick={handleClick}
     >
       <Typography
         fontWeight={"500"}
@@ -26,7 +35,7 @@ function MenuCategory({ category }: any) {
       >
         {category.name}
       </Typography>
-    </Link>
+    </Stack>
   );
 }
 
