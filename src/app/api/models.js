@@ -40,8 +40,9 @@ const categorySchema = new Schema(
       required: true,
     },
     foodId: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
       required: true,
+      ref:'Food'
     },
   },
   { timestamps: true }
@@ -73,9 +74,59 @@ const foodSchema = new Schema({
   },
 });
 
+const orderSchema = new Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    orderNumber: {
+      type: Schema.Types.ObjectId,
+      default: () => new mongoose.Types.ObjectId(),
+      unique: true,
+    },
+    foods: {
+      type: [
+        {
+          _id: Schema.Types.ObjectId,
+          foodImage: String,
+          foodName: String,
+          foodOnSale: Boolean,
+          foodPrice: String,
+          foodRecipe: String,
+          foodSalePrice: Number,
+          amount: Number,
+        },
+      ],
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    process: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 export const Category =
   mongoose.models.Category || mongoose.model("Category", categorySchema);
 
 export const Food = mongoose.models.Food || mongoose.model("Food", foodSchema);
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+export const Order =
+  mongoose.models.Order || mongoose.model("Order", orderSchema);

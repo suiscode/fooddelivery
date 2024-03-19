@@ -6,10 +6,9 @@ import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlin
 import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Stack, Typography } from "@mui/material";
+import Link from "next/link";
 
-function FormFirst({ user, setState, handleSubmit,handleSignOut }: any) {
-
- 
+function FormFirst({ user, setState, handleSubmit, handleSignOut }: any) {
   return (
     <Stack spacing={6} paddingBottom={"100px"} width={"100%"}>
       <Stack onSubmit={handleSubmit} width={"100%"} spacing={2}>
@@ -18,48 +17,49 @@ function FormFirst({ user, setState, handleSubmit,handleSignOut }: any) {
           input={user.name}
           setState={setState}
           type={false}
-          label={'Таны нэр'}
-
+          label={"Таны нэр"}
         />
         <Forminput
           img={<LocalPhoneOutlinedIcon />}
           input={user.phoneNumber}
           setState={setState}
           type={false}
-          label={'Дугаар'}
+          label={"Дугаар"}
         />
         <Forminput
           img={<ForwardToInboxOutlinedIcon />}
           input={user.email}
           setState={setState}
           type={false}
-          label={'И-Мэйл'}
-
+          label={"И-Мэйл"}
         />
       </Stack>
-      <Stack
-        direction={"row"}
-        width={"100%"}
-        bgcolor={"white"}
-        height={16}
-        borderRadius={"2px"}
-        alignItems={"center"}
-        spacing={2}
-        paddingInline={"20px"}
-      >
+      <Link href="history">
         <Stack
-          alignItems={"center"}
-          justifyContent={"center"}
+          direction={"row"}
+          width={"100%"}
           bgcolor={"white"}
-          borderRadius={"50%"}
-          sx={{ borderRadius: "50%", border: "1px solid gray" }}
-          width={"48px"}
-          height={"48px"}
+          height={16}
+          borderRadius={"2px"}
+          alignItems={"center"}
+          spacing={2}
+          className="cursor-pointer"
+          paddingInline={"20px"}
         >
-          <HistoryIcon />
+          <Stack
+            alignItems={"center"}
+            justifyContent={"center"}
+            bgcolor={"white"}
+            borderRadius={"50%"}
+            sx={{ borderRadius: "50%", border: "1px solid gray" }}
+            width={"48px"}
+            height={"48px"}
+          >
+            <HistoryIcon />
+          </Stack>
+          <Typography>Захиалгын түүх</Typography>
         </Stack>
-        <Typography>Захиалгын түүх</Typography>
-      </Stack>
+      </Link>
       <Stack
         direction={"row"}
         width={"100%"}
@@ -70,7 +70,7 @@ function FormFirst({ user, setState, handleSubmit,handleSignOut }: any) {
         spacing={2}
         paddingInline={"20px"}
         className="cursor-pointer"
-        onClick={()=>handleSignOut()}
+        onClick={() => handleSignOut()}
       >
         <Stack
           alignItems={"center"}

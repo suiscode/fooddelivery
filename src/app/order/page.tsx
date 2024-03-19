@@ -23,24 +23,26 @@ function OrderPage() {
     phoneNumber: string;
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type } = e.target;
-  
-    // Narrow down the type of the event target to HTMLInputElement
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       const isChecked = (e.target as HTMLInputElement).checked;
       setOrderInfo((prevState: OrderInfo) => ({
         ...prevState,
-        [name]: isChecked
+        [name]: isChecked,
       }));
     } else {
       setOrderInfo((prevState: OrderInfo) => ({
         ...prevState,
-        [name]: value
+        [name]: value,
       }));
     }
   };
-  
+
   return (
     <Stack
       direction={"row"}

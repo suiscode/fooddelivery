@@ -2,9 +2,12 @@
 import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import OrderCart from "./OrderCart";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-function Steptwo({ check,orderInfo }: any) {
+function Steptwo({ check, orderInfo }: any) {
   const [items, setItems] = useState<any[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const itemsJSON = localStorage.getItem("cartItems");
@@ -21,10 +24,20 @@ function Steptwo({ check,orderInfo }: any) {
         : item.foodPrice * item.amount;
   });
 
-  const handleSubmit=async()=>{
+  const handleSubmit = async () => {
     console.log(orderInfo);
-    
-  }
+    try {
+      const res = await axios.post("/api/order/", {
+        ...orderInfo,
+        totalPrice: total,
+        items: items,
+      });
+      router.push("/history");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Stack
@@ -63,7 +76,7 @@ function Steptwo({ check,orderInfo }: any) {
           </Stack>
           <button
             disabled={!check}
-            onClick={()=>handleSubmit()}
+            onClick={() => handleSubmit()}
             className="px-16 py-2 border-2 rounded-md disabled:bg-[#EEEFF2] disabled:text-[#1C2024] disabled:text-opacity-25 bg-[#18BA51] text-white"
           >
             Захиалах

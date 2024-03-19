@@ -21,6 +21,7 @@ export const GET = async (req, res) => {
   try {
     connectToDb();
     const categoryFind = await Category.find();
+    console.log(categoryFind);
     return NextResponse.json(categoryFind, { status: 200 });
   } catch (e) {
     console.log(e);
