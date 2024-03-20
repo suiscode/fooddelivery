@@ -29,7 +29,6 @@ async function Page({ searchParams }: SearchPageType) {
   const { query } = searchParams;
 
   const data = await searchData(query);
-  console.log(data);
 
   return (
     <Stack direction={'row'} className="flex-wrap gap-10" border={2} width={'100%'} height={'100%'} px={'120px'} py={'48px'}>

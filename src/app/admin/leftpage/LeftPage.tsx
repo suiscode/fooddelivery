@@ -6,7 +6,7 @@ import CategoryList from "./CategoryList";
 
 function LeftPage({data}:any) {
   return (
-    <Stack width={"20%"} border={"2px solid red"} spacing={4}>
+    <Stack width={"20%"} spacing={4}>
       <Typography variant="h5" fontWeight={"600"}>
         Food menu
       </Typography>

@@ -6,8 +6,6 @@ import { cookies } from "next/headers";
 
 export const POST = async (req, res) => {
   const body = await req.json();
-  console.log(body);
-  console.log(body.items);
   try {
     connectToDb();
     const cookieStore = cookies();

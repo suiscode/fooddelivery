@@ -29,7 +29,6 @@ function AddToCart({ item, openModal, handleClose }: any) {
   }
 
   const handleCart = () => {
-    console.log('worked');
     
     const existingCartItemsJSON = localStorage.getItem("cartItems");
     const existingCartItems: any[] = existingCartItemsJSON
@@ -37,7 +36,6 @@ function AddToCart({ item, openModal, handleClose }: any) {
       : [];
     existingCartItems.push({ ...modalInfo, amount: amount });
     localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
-    console.log("Item added to cart:", modalInfo);
     handleClose();
   };
 

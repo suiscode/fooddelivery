@@ -16,7 +16,6 @@ async function AdminPage({ searchParams }: SearchPageType) {
 
     <Stack
       direction={"row"}
-      border={"2px solid black"}
       width={"100%"}
       minHeight={"1000px"}
       paddingInline={"120px"}

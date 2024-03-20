@@ -12,7 +12,6 @@ interface OrderInfo {
 
 function SearchInput({ data, setState, setOrderInfo }: any) {
   const handleClick = (address: string) => {
-    console.log(address);
     setOrderInfo((prev:OrderInfo)=>({...prev,search:address}))
     setState(false);
   };

@@ -25,7 +25,6 @@ export const fetchAllCategoryWithFood =async(q)=>{
    try{
       connectToDb()
       const allCategoryWithFoods = await Category.find().populate('foodId');
-      console.log(allCategoryWithFoods);
       return allCategoryWithFoods
    }catch(e){
       console.log(e);

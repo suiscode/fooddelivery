@@ -11,9 +11,6 @@ function FoodCard({ item, size }: any) {
 
   const handleOpen = () => {
     if (!openModal) {
-      console.log(item);
-
-      console.log("item");
       setModalInfo({ ...item });
       setOpenModal(true);
     }

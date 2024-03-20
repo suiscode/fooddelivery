@@ -25,7 +25,6 @@ function Steptwo({ check, orderInfo }: any) {
   });
 
   const handleSubmit = async () => {
-    console.log(orderInfo);
     try {
       const res = await axios.post("/api/order/", {
         ...orderInfo,
@@ -34,7 +33,6 @@ function Steptwo({ check, orderInfo }: any) {
       });
       router.push("/history");
       localStorage.removeItem('cartItems')
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

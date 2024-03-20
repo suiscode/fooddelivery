@@ -24,7 +24,7 @@ async function RightPage({ q, category }: any) {
   }
 
   return (
-    <Stack width={"80%"} border={"2px solid green"} p={4} spacing={4}>
+    <Stack width={"80%"} p={4} spacing={4}>
       <Stack justifyContent={"space-between"} direction={"row"}>
         <Typography variant="h6" className="font-bold">
           {q}

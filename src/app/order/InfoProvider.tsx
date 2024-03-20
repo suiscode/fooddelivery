@@ -24,7 +24,6 @@ function InfoProvider({ setCheck, orderInfo, handleChange,setOrderInfo }: any) {
     if (!state) setState(true);
   };
   useEffect(() => {
-    console.log(orderInfo);
 
     if (
       search &&

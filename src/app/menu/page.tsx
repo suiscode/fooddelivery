@@ -11,7 +11,6 @@ type SearchPageType = {
 
 async function MenuPage({ searchParams }: SearchPageType) {
   const q = searchParams?.category || "";
-  console.log(q, 'query');
 
   const categories: any = await fetchCategory();
 
