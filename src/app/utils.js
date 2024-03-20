@@ -21,13 +21,33 @@ export const fetchFoodByCategory =async(q)=>{
     }
 }
 
+export const fetchAllCategoryWithFood =async(q)=>{
+   try{
+      connectToDb()
+      const allCategoryWithFoods = await Category.find().populate('foodId');
+      console.log(allCategoryWithFoods);
+      return allCategoryWithFoods
+   }catch(e){
+      console.log(e);
+   }
+}
+
 export const fetchAllFood =async()=>{
     try{
        connectToDb()
        const allFoods = await Food.find();
-       console.log(allFoods, 'from mongoDB');
        return allFoods
     }catch(e){
        console.log(e);
     }
+}
+
+export const fetchFoodOnSale =async()=>{
+   try{
+      connectToDb()
+      const foodOnSale = await Food.find({foodOnSale:true});
+      return foodOnSale
+   }catch(e){
+      console.log(e);
+   }
 }

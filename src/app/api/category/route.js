@@ -17,18 +17,6 @@ export const POST = async (req, res) => {
   }
 };
 
-export const GET = async (req, res) => {
-  try {
-    connectToDb();
-    const categoryFind = await Category.find();
-    console.log(categoryFind);
-    return NextResponse.json(categoryFind, { status: 200 });
-  } catch (e) {
-    console.log(e);
-    return NextResponse.json(e, { status: 500 });
-  }
-};
-
 export const PUT = async (req, res) => {
   const body = await req.json();
   try {

@@ -42,7 +42,7 @@ const categorySchema = new Schema(
     foodId: {
       type: [Schema.Types.ObjectId],
       required: true,
-      ref:'Food'
+      ref: "Food",
     },
   },
   { timestamps: true }

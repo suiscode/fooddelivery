@@ -12,7 +12,6 @@ async function FoodContainer({ q }: any) {
   } else {
     foodData = await fetchAllFood();
   }
-  console.log(foodData);
 
   interface Food {
     _id: string;

@@ -34,46 +34,11 @@ export const POST = async (req, res) => {
   }
 };
 
-export const GET = async (req, res) => {
-  try {
-    connectToDb();
 
-    let foodfind;
-
-    const categoryName = req.nextUrl.searchParams.get("category");
-    const amount = req.nextUrl.searchParams.get("amount");
-    const onSale = req.nextUrl.searchParams.get("sale");
-    if (onSale) {
-      foodfind = await Food.find({ foodOnSale: true }).limit(amount);
-      return NextResponse.json(foodfind, { status: 200 });
-    }
-
-    if (categoryName == "onsale") {
-      foodfind = await Food.find({ foodOnSale: true });
-      return NextResponse.json(foodfind, { status: 200 });
-    }
-
-    if (categoryName) {
-      const { foodId } = await Category.findOne({ name: categoryName });
-      if (amount) {
-        foodfind = await Food.find({ _id: { $in: foodId } }).limit(amount);
-      } else {
-        foodfind = await Food.find({ _id: { $in: foodId } });
-      }
-    } else {
-      foodfind = await Food.find();
-    }
-
-    return NextResponse.json(foodfind, { status: 200 });
-  } catch (e) {
-    return NextResponse.json(e, { status: 500 });
-  }
-};
 
 export const PUT = async (req, res) => {
   const { items } = await req.json();
   connectToDb();
-
 
   try {
     return NextResponse.json("hi", { status: 200 });

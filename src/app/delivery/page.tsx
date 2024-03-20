@@ -3,9 +3,10 @@ import React from "react";
 
 function DeliveryPage() {
   return (
-    <APIProvider apiKey="AIzaSyA7Bm_2t30YlxIXMBk5SJhlhFWqZQo8-WY">
-      <div>DeliveryPage</div>;
-    </APIProvider>
+    <div>hello</div>
+    // <APIProvider apiKey="AIzaSyA7Bm_2t30YlxIXMBk5SJhlhFWqZQo8-WY">
+    //   <div>DeliveryPage</div>;
+    // </APIProvider>
   );
 }
 

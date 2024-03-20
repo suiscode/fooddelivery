@@ -4,13 +4,13 @@ import Category from "./Category";
 import CreateCategoryButton from "./CreateCategoryButton";
 import CategoryList from "./CategoryList";
 
-function LeftPage() {
+function LeftPage({data}:any) {
   return (
     <Stack width={"20%"} border={"2px solid red"} spacing={4}>
       <Typography variant="h5" fontWeight={"600"}>
         Food menu
       </Typography>
-      <CategoryList />
+      <CategoryList data={JSON.parse(JSON.stringify(data))}/>
       <CreateCategoryButton />
     </Stack>
   );

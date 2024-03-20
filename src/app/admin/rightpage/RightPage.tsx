@@ -1,46 +1,18 @@
-"use client";
 import { Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import CreateNewFood from "./CreateNewFood";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
+import React from "react";
 import FoodCard from "@/app/components/FoodCard";
-import Loading from "@/app/components/Loading";
-import NoFoodIndicator from "@/app/components/NoFoodIndicator";
+import CreateButton from "./CreateButton";
+import { fetchAllFood, fetchFoodByCategory } from "@/app/utils";
 
-function RightPage() {
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [refetch, setRefetch] = useState(false);
+async function RightPage({ q, category }: any) {
+  let foodData;
 
-  const searchParams = useSearchParams();
-  const queryParam = searchParams.get("category");
-
-  const handleOpen = () => {
-    if (!open) {
-      setOpen(true);
-    }
-  };
-
-  const fetchFood = async () => {
-    try {
-      setLoading(true);
-      if (!queryParam) {
-        return;
-      }
-      const res = await axios.get(`/api/food?category=${queryParam}`);
-      setData(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching food data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFood();
-  }, [queryParam, refetch]);
-
+  if (q) {
+    const { foodId } = await fetchFoodByCategory(q);
+    foodData = foodId;
+  } else {
+    foodData = await fetchAllFood();
+  }
   interface Food {
     _id: string;
     foodName: string;
@@ -55,31 +27,19 @@ function RightPage() {
     <Stack width={"80%"} border={"2px solid green"} p={4} spacing={4}>
       <Stack justifyContent={"space-between"} direction={"row"}>
         <Typography variant="h6" className="font-bold">
-          {queryParam}
+          {q}
         </Typography>
-        <button
-          onClick={handleOpen}
-          className="bg-[#18BA51] text-white rounded-md px-3 py-2 hover:bg-opacity-90"
-        >
-          Add new food
-        </button>
-        <CreateNewFood
-          setOpen={setOpen}
-          open={open}
-          refetch={refetch}
-          setRefetch={setRefetch}
-        />
+        <CreateButton category={JSON.parse(JSON.stringify(category))} />
       </Stack>
-
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="flex gap-10 flex-wrap">
-          {data.map((item: Food) => (
-            <FoodCard key={item._id} item={item} />
-          ))}
-        </div>
-      )}
+      <div className="flex gap-10 flex-wrap">
+        {foodData.map((item: Food) => (
+          <FoodCard
+            key={item._id}
+            item={JSON.parse(JSON.stringify(item))}
+            size={"33%"}
+          />
+        ))}
+      </div>
     </Stack>
   );
 }

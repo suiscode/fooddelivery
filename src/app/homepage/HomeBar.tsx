@@ -1,4 +1,3 @@
-"use client";
 import { Stack, Typography } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
@@ -7,24 +6,6 @@ import React, { use, useEffect, useState } from "react";
 import FoodCard from "../components/FoodCard";
 
 function HomeBar({ item }: any) {
-  const [food, setFood] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchFood();
-  }, []);
-
-  const fetchFood = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`/api/food?category=${item.name}&amount=4`);
-      setFood(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching food data:", error);
-    }
-  };
-
   return (
     <Stack spacing={2}>
       <Stack
@@ -46,7 +27,7 @@ function HomeBar({ item }: any) {
         </Link>
       </Stack>
       <Stack direction={"row"} spacing={2}>
-        {food.map((item) => (
+        {item.foodId.map((item: any) => (
           <FoodCard key={crypto.randomUUID()} item={item} size={"24%"} />
         ))}
       </Stack>

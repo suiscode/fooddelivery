@@ -13,19 +13,6 @@ async function MenuPage({ searchParams }: SearchPageType) {
   const q = searchParams?.category || "";
   console.log(q, 'query');
 
-  // const searchParams = useSearchParams();
-  // const queryParam = searchParams.get("category");
-
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   const res = await axios.get("/api/category");
-  //   setData(res.data);
-  // };
-
   const categories: any = await fetchCategory();
 
   return (

@@ -34,7 +34,7 @@ async function Page({ searchParams }: SearchPageType) {
   return (
     <Stack direction={'row'} className="flex-wrap gap-10" border={2} width={'100%'} height={'100%'} px={'120px'} py={'48px'}>
       {data.map((item: FoodArray) => (
-        <FoodCard item={item} size={'20%'}/>
+        <FoodCard item={item} key={crypto.randomUUID()} size={'20%'}/>
       ))}
     </Stack>
   );

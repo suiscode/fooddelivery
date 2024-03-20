@@ -14,14 +14,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { Label } from "@mui/icons-material";
 import axios from "axios";
-import { useGlobalContext } from "@/app/context/Context";
+import { useRouter, useSearchParams } from "next/navigation";
 
-function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
-  const { refresh, setRefresh } = useGlobalContext();
+function CreateNewFood({ setOpen, open, categories }: any) {
+  const searchParams = useSearchParams();
+  const param = searchParams.get("category");
+
   const handleClose = () => setOpen(false);
   const [error, setError] = useState("");
   const [foodInputs, setFoodInputs] = useState({
@@ -34,16 +35,7 @@ function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
     foodImage: "",
   });
 
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, [refresh]);
-
-  const fetchData = async () => {
-    const res = await axios.get("/api/category");
-    setCategories(res.data);
-  };
+  const router = useRouter()
 
   const handleChange = (event: SelectChangeEvent) => {
     setFoodInputs((prev) => ({ ...prev, foodCategory: event.target.value }));
@@ -70,10 +62,9 @@ function CreateNewFood({ setOpen, refetch, open, setRefetch }: any) {
     }
     try {
       const res = await axios.post("/api/food", foodInputs);
-      setRefresh(!refresh);
       handleClose();
+      router.refresh() 
       setError("");
-      setRefetch(!refetch);
     } catch (e: any) {
       setError(e.response.data);
     }
