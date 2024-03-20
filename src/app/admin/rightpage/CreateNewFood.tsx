@@ -249,11 +249,11 @@ function CreateNewFood({ setOpen, open, categories }: any) {
             </Stack>
           </Stack>
 
-          {/* {error && (
+          {error && (
             <Typography color={"red"} pl={1}>
               {error}
             </Typography>
-          )} */}
+          )}
         </Stack>
         <Stack
           direction={"row"}

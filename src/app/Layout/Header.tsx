@@ -106,6 +106,7 @@ function Header() {
         </button>
         <Drawer anchor={"right"} open={open} onClose={toggleDrawer(false)}>
           <Cart
+          setOpen={setOpen}
             toggleDrawer={toggleDrawer}
             open={open}
             items={items}

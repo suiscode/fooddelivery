@@ -36,7 +36,7 @@ async function RightPage({ q, category }: any) {
           <FoodCard
             key={item._id}
             item={JSON.parse(JSON.stringify(item))}
-            size={"33%"}
+            size={"30%"}
           />
         ))}
       </div>

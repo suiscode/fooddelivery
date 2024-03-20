@@ -33,6 +33,7 @@ function Steptwo({ check, orderInfo }: any) {
         items: items,
       });
       router.push("/history");
+      localStorage.removeItem('cartItems')
       console.log(res);
     } catch (error) {
       console.log(error);

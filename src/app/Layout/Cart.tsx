@@ -1,22 +1,16 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { relative } from "path";
 import CartItem from "./CartItem";
-import axios from "axios";
-import { useGlobalContext } from "../context/Context";
-import { Food } from "../api/models";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-function Cart({ toggleDrawer, items, setItems }: any) {
+function Cart({ toggleDrawer, items, setItems,setOpen }: any) {
   const router = useRouter();
 
   let total = 0;
 
   items.forEach((item: any) => {
-
     total +=
       item.foodSalePrice !== null
         ? item.foodSalePrice * item.amount
@@ -52,6 +46,11 @@ function Cart({ toggleDrawer, items, setItems }: any) {
     });
   };
 
+  const handleClick = () => {
+    setOpen(false);
+    router.push('/order')
+  };
+
   return (
     <Stack width={"586px"} className="relative" height={"100%"}>
       <Stack direction={"row"} spacing={26} p={4}>
@@ -83,13 +82,12 @@ function Cart({ toggleDrawer, items, setItems }: any) {
             {total}
           </Typography>
         </Stack>
-        <Link
-        href='/order'
-           onClick={toggleDrawer(false)} 
+        <button
+          onClick={handleClick}
           className="bg-[#18BA51] text-center text-white rounded-md w-1/2 py-3"
         >
           Захиалах
-        </Link>
+        </button>
       </Stack>
     </Stack>
   );

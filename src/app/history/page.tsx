@@ -12,7 +12,9 @@ function HistoryPage() {
     const fetchOrder = async () => {
       const res = await axios.get("/api/order");
       setData(res.data);
-      setId(res.data[0]._id);
+      if (res.data.length > 0) {
+        setId(res.data[0]._id);
+      }
     };
     fetchOrder();
   }, []);
